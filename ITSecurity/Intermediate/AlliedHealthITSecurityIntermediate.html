@@ -215,7 +215,7 @@ Welcome, $name!
       &lt;span class=&quot;card-icon&quot;&gt;
         &lt;img src=&quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/icons/PublicHealthSpecialistIcon.png?raw=true&quot; alt=&quot;Public Health icon&quot;&gt;
       &lt;/span&gt;
-      &lt;span class=&quot;card-title&quot;&gt;PH-branch-Intro&lt;/span&gt;
+      &lt;span class=&quot;card-title&quot;&gt;Public Health&lt;/span&gt;
     -&gt;PH-branch-Intro]]
   &lt;/article&gt;
 
@@ -224,7 +224,7 @@ Welcome, $name!
       &lt;span class=&quot;card-icon&quot;&gt;
         &lt;img src=&quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/icons/EnviornmentalHealthandSafetyProfessionalIcon.png?raw=true&quot; alt=&quot;Environmental icon&quot;&gt;
       &lt;/span&gt;
-      &lt;span class=&quot;card-title&quot;&gt;EHS-branch-Intro&lt;/span&gt;
+      &lt;span class=&quot;card-title&quot;&gt;Enviromental Health &amp; Safety&lt;/span&gt;
     -&gt;EHS-branch-Intro]]
   &lt;/article&gt;
 
@@ -270,7 +270,7 @@ Welcome! To Allied Health Int!
 &lt;img src = &quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/profiles/marlawalker.png?raw=true&quot;&gt;
 
 [[Start Marla&#39;s Day-&gt;Marla Enters]]</tw-passagedata><tw-passagedata pid="6" name="Marla Enters" tags="" position="1050,225" size="100,100">(display:&quot;Chrome&quot;)
-(set: $typewriterText to &quot;Marla comes into work for her 9am shift, a full day ahead of her at the dialysis center. She is a jack-of-all trades, a social worker, personal assistant, makeshift therapist, and patient advocate. She has three patients booked today before noon... She sits down to prep for her first telehealth call with a newly diagnosed patient, Mary Wullams. Poor girl is only 29 and has kidney failure. There is going to be a lot to talk about with all of these new appointments. At the top of the patient platform, she sees a 1 notification next to&quot;)
+(set: $typewriterText to &quot;Marla comes into work for her 9am shift, a full day ahead of her at the dialysis center. She is a jack-of-all trades, a social worker, personal assistant, makeshift therapist, and patient advocate. She has three patients booked today before noon... She sits down to prep for her first telehealth call with a newly diagnosed patient, Mary Willams. Poor girl is only 29 and has kidney failure. There is going to be a lot to talk about with all of these new appointments. At the top of the patient platform, she sees a 1 notification next to&quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -280,9 +280,14 @@ Welcome! To Allied Health Int!
   (if: $typewriterPos is $typewriterText&#39;s length + 1)[
     (append: ?typewriterOutput)[ [[messages-&gt;Mary&#39;s message]].
     ]
+    (stop:)
   ]
-</tw-passagedata><tw-passagedata pid="7" name="StoryInit" tags="" position="400,50" size="100,100">(set: $points to 0)
+]</tw-passagedata><tw-passagedata pid="7" name="StoryInit" tags="" position="400,50" size="100,100">(set: $points to 0)
 (set: $pcPoints to 0)
+(set: $ehsPoints to 0)
+(set: $pnPoints to 0)
+(set: $nPoints to 0)
+
 (set: $finalUnlocked to false)
 
 (set: $updateCorrectb4 to false)
@@ -293,7 +298,9 @@ Welcome! To Allied Health Int!
 (set: $portalCorrectb2 to false)
 (set: $consentCorrectb2 to false)
 (set: $grandpaCorrectb2 to false)
-(set: $doorCorrectb2 to false)</tw-passagedata><tw-passagedata pid="8" name="Points" tags="" position="550,75" size="100,100">## My Points Status
+(set: $doorCorrectb2 to false)
+
+(set: $portalCorrectB1 to true)</tw-passagedata><tw-passagedata pid="8" name="Points" tags="" position="550,75" size="100,100">## My Points Status
 
 You currently have: **$points** point(s).
 
@@ -316,13 +323,14 @@ Should she: &quot;)
   (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
   (set: $typewriterPos to it + 1)
   (if: $typewriterPos is $typewriterText&#39;s length + 1)[
-    (append: ?typewriterOutput)[
-[[Tell Mary she can do whatever works best for her and call her on the phone?-&gt;Phone Call]]
+    (append: ?typewriterOutput)[ 
+[[Tell Mary she can do whatever works best for her and call her on the phone-&gt;Phone Call]]
 
 [[Insist that Mary try and use the platform anyways, offering to help her with the patient portal-&gt;Insist on Portal]]
     ]
+    (stop:)
   ]
-
+]
 </tw-passagedata><tw-passagedata pid="11" name="Phone Call" tags="" position="1375,75" size="100,100">(display:&quot;Chrome&quot;)
 
 (set: $typewriterText to &quot;Marla dials her number, 123-456-7890. They begin their telehealth call. She begins to 
@@ -341,10 +349,12 @@ Apologize and tell Mary she will [[immediately report]] this medical privacy bre
  
 Apologize to Mary and [[keep the conversation going]], better not to make a big deal and worry Mary more.
     ]
+    (stop:)
+    ]
   ]
 </tw-passagedata><tw-passagedata pid="12" name="Insist on Portal" tags="" position="1400,250" size="100,100">(display: &quot;Chrome&quot;)
 (set: $pcPoints to $pcPoints +2)
-(set: $points to $pcPoints)
+(set: $portalCorrectB1 to true)
 (set: $typewriterText to &quot;As Mary&#39;s appoitment rolls around, Marla gets a call on her telehealth platform... it&#39;s Mary!
 
 Their appoiment goes smooth. Marla runns through her diagnosis, answering any questuons she has and refers her to an awesome therapist who should be able to help her cope with this new, tough diagnosis. 
@@ -359,11 +369,9 @@ Marla closes out of the portal, ready to &quot;)
   (if: $typewriterPos is $typewriterText&#39;s length + 1)[
     (append: ?typewriterOutput)[ [[continue her day]].
     ]
-  ]
-
-
-
-(set: $points to $points + 2)</tw-passagedata><tw-passagedata pid="13" name="Nursing" tags="" position="750,525" size="100,100">(display:&quot;Chrome&quot;)
+    (stop:)
+    ]
+  ]</tw-passagedata><tw-passagedata pid="13" name="Nursing" tags="" position="750,525" size="100,100">(display:&quot;Chrome&quot;)
 &lt;img src=&quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/profiles/edwardomartos.png?raw=true&quot;&gt;
 
 [[Start Eduardo&#39;s Day-&gt;Eduardo Intro]]</tw-passagedata><tw-passagedata pid="14" name="Chrome" tags="" position="450,200" size="100,100">&lt;div class=&quot;global-header&quot;&gt;
@@ -389,7 +397,6 @@ Marla closes out of the portal, ready to &quot;)
 
 </tw-passagedata><tw-passagedata pid="15" name="immediately report" tags="" position="1525,25" size="100,100">(display:&quot;Chrome&quot;)
 (set: $pcPoints to $pcPoints +1)
-(set: $points to $pcPoints)
 (set: $typewriterText to &quot;Marla quickly apologizes to Mary, telling her she will report the call to IT the seconds they get off the phone. She finishes up the call but can sense Mary&#39;s weariness. 
 
 She quickly types out an email to the IT: director Jessica, and then goes to &quot;)
@@ -402,6 +409,8 @@ She quickly types out an email to the IT: director Jessica, and then goes to &qu
   (if: $typewriterPos is $typewriterText&#39;s length + 1)[
     (append: ?typewriterOutput)[ [[continue her day]].
     ]
+    (stop:)
+    ]
   ]</tw-passagedata><tw-passagedata pid="16" name="keep the conversation going" tags="" position="1525,150" size="100,100">(display:&quot;Chrome&quot;)
 (set: $typewriterText to &quot;Marla apologizes to Mary. \&quot;I am so sorry about all that! Thank god their gone!\&quot; and she continues the call. Mary finishes the telehealth session but doesn&#39;t say much more. Marla senese she might be a bit uncomfortable. They say goodbye until their next appointment.&quot;)
 
@@ -413,34 +422,65 @@ She quickly types out an email to the IT: director Jessica, and then goes to &qu
   (if: $typewriterPos is $typewriterText&#39;s length + 1)[
     (append: ?typewriterOutput)[ [[continue her day]].
     ]
+    (stop:)
+    ]
   ]</tw-passagedata><tw-passagedata pid="17" name="continue her day" tags="" position="1750,225" size="100,100">(display:&quot;Chrome&quot;)
-It&#39;s already 10am, time for Marla to send/respond to some patient messages portal. She sees a message come through from Mr.Lin, one of her favorite patients. 
+(set: $typewriterText to &quot;It&#39;s already 10am, time for Marla to send/respond to some patient messages portal. She sees a message come through from Mr.Lin, one of her favorite patients. 
 
+Marla stares at the screen confused. The message came from Mr.Lin&#39;s account but is clearly not from Mr.Lin and his wife, Marissa, who has been given authorization. Should she:&quot;)
 
-
-Marla stares at the screen confused. The message came from Mr.Lin&#39;s account but is clearly not from Mr.Lin and his wife, Marissa, who has been given authorization. Should she:
-
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[
 [[Message Jeremy back]] and put in a refill on his diuretics
-[[Message Mr.Lin]] to check in and report the inapproriate account usage to IT/HIPPA office. </tw-passagedata><tw-passagedata pid="18" name="Message Jeremy back" tags="" position="1875,325" size="100,100">Hi 
+[[Message Mr.Lin]] to check in and report the inapproriate account usage to IT/HIPPA office. 
+    ]
+    (stop:)
+    ]
+  ]</tw-passagedata><tw-passagedata pid="18" name="Message Jeremy back" tags="" position="1875,325" size="100,100">(display:&quot;Chrome&quot;) Marla thinks about how lucky Mr.Lin is to have a housekeeper like Jeremy, always keeping Mr. Lin&#39;s best interests in mind. 
 
-Marla thinks about how lucky Mr.Lin is to have a housekeeper like Jeremy, always keeping Mr. Lin&#39;s best interests in mind. 
+[[Prep for next call]]</tw-passagedata><tw-passagedata pid="19" name="Message Mr.Lin" tags="" position="1900,175" size="100,100">(display:&quot;Chrome&quot;)
+(set: $pcPoints to $pcPoints +1)
+(set: $points to $pcPoints)
+Jermey is NOT on Mr. Lin&#39;s approved list for patient contacts. Marla temporarily freezes his account and calls Mr. Lin to ask if Jeremy is an approved contact. Marla will also report this to IT as Mr. Lin may need to reset his password etc. 
 
-[[Prep for next call]]</tw-passagedata><tw-passagedata pid="19" name="Message Mr.Lin" tags="" position="1900,175" size="100,100">Jermey is NOT on Mr. Lin&#39;s approved list for patient contacts. Marla temporarily freezes his account and calls Mr. Lin to ask if Jeremy is an approved contact. Marla will also report this to IT as Mr. Lin may need to reset his password etc. 
-
-[[Prep for next call]] </tw-passagedata><tw-passagedata pid="20" name="Prep for next call" tags="" position="2050,250" size="100,100">Marla is ready for a quick snack break before her 10:30 patient call. She goes to head to the vending machine. Should she:
+[[Prep for next call]] </tw-passagedata><tw-passagedata pid="20" name="Prep for next call" tags="" position="2050,250" size="100,100">(display:&quot;Chrome&quot;)
+Marla is ready for a quick snack break before her 10:30 patient call. She goes to head to the vending machine. Should she:
 
 Quickly sneak out and grab a snack so she isn&#39;t late for her next appoitment... she can [[leave her computer]] and notes for 5 minutes. 
 
-[[Take the extra steps]] to sign out of her computer before leaving for the vending machine... she sees the time 10:25... she&#39;s going to be late for her next appointment...</tw-passagedata><tw-passagedata pid="21" name="leave her computer" tags="" position="2200,275" size="100,100">Marla grabs a Twix bar and runs back to her computer, and signs in quick, and is only a minute late to the call [[Success!]] </tw-passagedata><tw-passagedata pid="22" name="Take the extra steps" tags="" position="2200,150" size="100,100">Marla grabs a twix bar and runs back to her computer, joining her call on time! [[Success!]]
-</tw-passagedata><tw-passagedata pid="23" name="Success!" tags="" position="2350,175" size="100,100">Now that Marla made her next call, learn whether you guided her [[well or not...]]</tw-passagedata><tw-passagedata pid="24" name="well or not..." tags="" position="2525,75" size="100,100">(display:&quot;Chrome&quot;)
+[[Take the extra steps]] to sign out of her computer before leaving for the vending machine... she sees the time 10:25... she&#39;s going to be late for her next appointment...</tw-passagedata><tw-passagedata pid="21" name="leave her computer" tags="" position="2200,275" size="100,100">(display:&quot;Chrome&quot;)
+Marla grabs a Twix bar and runs back to her computer, and signs in quick, and is only a minute late to the call [[Success!]] </tw-passagedata><tw-passagedata pid="22" name="Take the extra steps" tags="" position="2200,150" size="100,100">(display:&quot;Chrome&quot;)
+(set: $pcPoints to $pcPoints +1)
+(set: $points to $pcPoints)
+Marla grabs a twix bar and runs back to her computer, joining her call on time! [[Success!]]
+</tw-passagedata><tw-passagedata pid="23" name="Success!" tags="" position="2350,175" size="100,100">(display:&quot;Chrome&quot;)
+(set: $typewriterText to &quot;Now that Marla made her next call, learn whether you guided her&quot;)
+
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[ [[well or not...]]
+    ]
+    (stop:)
+    ]
+  ]
+</tw-passagedata><tw-passagedata pid="24" name="well or not..." tags="" position="2550,75" size="100,100">(display:&quot;Chrome&quot;)
 
 [[Start]] </tw-passagedata><tw-passagedata pid="25" name="Eduardo Intro" tags="" position="1000,525" size="100,100">(display:&quot;Chrome&quot;)
 &lt;img src=&quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/nursing/stjohnshospitallogo.png?raw=true&quot;&gt;
-(set: $typewriterText to &quot;Eduardo Martos walks through the main St.John&#39;s Hospital doors. It&#39;s 10pm, his night shift in the Pediatric Intensive Care Unit Starts shortly. He steps into the employee break room to take a few minutes to relax before the handover meeting with the day team. Nurse Jackie is in there sipping on a coffee. She tells Eduardo his shift is about to be BUSY...
+(set: $typewriterText to &quot;Edwardo Martos walks through the main St. John&#39;s Hospital doors. It&#39;s 10pm, his night shift in the Pediatric Intensive Care Unit starts shortly. He steps into the employee break room to take a few minutes to relax before the handover meeting with the day team. Nurse Jackie is in there sipping on a coffee. She tells Eduardo his shift is about to be BUSY...
 
-\&quot;We just got a really sick girl, about age 7 from the ER, She was in a bad car ccident, both her parents are in surgery and she has like 7 broken bones. Poor thing. She is going to need monitoring ALL NIGHT\&quot;
+\&quot;We just got a really sick girl, about age 7 from the ER, she was in a bad car accident, both her parents are in surgery and she has like 7 broken bones. Poor thing. She is going to need monitoring ALL NIGHT.\&quot;
 
-Eduardo takes a deep breath to mentally prepare. He is still new to nursing, only 2 years out of scjool. It&#39;s hard sometimes, he feels for his patients. 
+Eduardo takes a deep breath to mentally prepare. He is still new to nursing, only 2 years out of school. It&#39;s hard sometimes, he feels for his patients. 
 
 \&quot;Poor girl\&quot; he says, \&quot;no parents by the bedside is hard. We will make sure to stay by here side.\&quot; Nurse Jackie smiles as she &quot;)
 
@@ -457,11 +497,11 @@ Eduardo takes a deep breath to mentally prepare. He is still new to nursing, onl
 ]
 </tw-passagedata><tw-passagedata pid="26" name="Portal-Typo" tags="" position="1175,475" size="100,100">(display:&quot;Chrome&quot;)
 &lt;img src=&quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/nursing/stjohnshospitalportal.png?raw=true&quot;&gt;
-(set: $typewriterText to &quot;Eduardo opens his laptop, trying to get caught up on the new patients on the floor, including that girl Nurse Jackie warned him about.
+(set: $typewriterText to &quot;Edwardo opens his laptop, trying to get caught up on the new patients on the floor, including that girl Nurse Jackie warned him about.
 
-He opens the pateint portal, going to sign in. He sees something odd on the landing page... a typo...
+He opens the patient portal, going to sign in. He sees something odd on the landing page... a typo...
 
-Eduardo hestitates... Should he: 
+Edwardo hesitates... should he: 
 &quot;)
 
 (set: $typewriterPos to 1)
@@ -471,8 +511,7 @@ Eduardo hestitates... Should he:
   (set: $typewriterPos to it + 1)
   (if: $typewriterPos is $typewriterText&#39;s length + 1)[
     (append: ?typewriterOutput)[ 
-&lt;img src=&quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/nursing/edwardopopup.png?raw=true&quot;&gt;
-[[Log-in like normal-&gt;Portal-Incorrect]], must be a flawed update or a dumb intern. He can&#39;t waste time when patients need help
+[[Log-in like normal-&gt;Portal-Incorrect]], must be a flawed update or a dumb intern. He can&#39;t waste time when patients need help.
 
 He should [[ask the IT guy-&gt;Portal-Correct]] real quick to make sure he has the right website, he is new afterall.
     ]
@@ -483,7 +522,7 @@ He should [[ask the IT guy-&gt;Portal-Correct]] real quick to make sure he has t
 
 
 </tw-passagedata><tw-passagedata pid="27" name="Portal-Incorrect" tags="" position="1425,375" size="100,100">(display:&quot;Chrome&quot;)
-(set: $typewriterText to &quot;Eduardo goes ahead and logs in. His screen does a werid flash and he gets a pop up \&quot;unsecure connection\&quot; He simply closes the tab and relogs in, no problem this &quot;)
+(set: $typewriterText to &quot;Edwardo goes ahead and logs in. His screen does a werid flash and he gets a pop up \&quot;unsecure connection\&quot; He simply closes the tab and relogs in, no problem this &quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -499,8 +538,8 @@ He should [[ask the IT guy-&gt;Portal-Correct]] real quick to make sure he has t
 
 </tw-passagedata><tw-passagedata pid="28" name="Portal-Correct" tags="" position="1375,575" size="100,100">(display:&quot;Chrome&quot;)
 (set: $portalCorrectb2 to true)
-(set: $points to $points + 1)
-(set: $typewriterText to &quot;Eduardo chats with Jason, the IT guy... he is only a few dorrs down the hallway. Jason asks him to send him the URL and resends him the link to secure platform. \&quot;I&#39;ll look into this, for now, use the link I sent you, I know its &quot;)
+(set: $nPoints to $nPoints + 1)
+(set: $typewriterText to &quot;Edwardo chats with Jason, the IT guy... he is only a few doors down the hallway. Jason asks him to send him the URL and resends him the link to secure platform. \&quot;I&#39;ll look into this, for now, use the link I sent you, I know its &quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -515,9 +554,9 @@ He should [[ask the IT guy-&gt;Portal-Correct]] real quick to make sure he has t
 ]
 
 </tw-passagedata><tw-passagedata pid="29" name="Alyssa Intro" tags="" position="1600,450" size="100,100">(display:&quot;Chrome&quot;)
-(set: $typewriterText to &quot;Eduardo heads over to the team meeting to do a handover with the day team. Adter the meeting, he goes to see his new pateint, the one Nurse Jackie told him about, 7-year-old Alyssa. 
+(set: $typewriterText to &quot;Edwardo heads over to the team meeting to do a handover with the day team. After the meeting, he goes to see his new pateint, the one Nurse Jackie told him about, 7-year-old Alyssa. 
 
-He steps into her room. THe small girl is sedated, to keep her out of pain and discomfort. He takes her vitals and checks on her heart and oxygen monitor. So far, so good. He takes a second to hold her little hand by her nedside before he has to leave to see the next patient. He hopes she know, even in her sleep, that he and the other nurses are by her &quot;)
+He steps into her room. The small girl is sedated, to keep her out of pain and discomfort. He takes her vitals and checks on her heart and oxygen monitor. So far, so good. He takes a second to hold her little hand by her bedside before he has to leave to see the next patient. He hopes she know, even in her sleep, that he and the other nurses are by her &quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -531,7 +570,7 @@ He steps into her room. THe small girl is sedated, to keep her out of pain and d
   ]
 ]
 </tw-passagedata><tw-passagedata pid="30" name="Lin-Consent" tags="" position="1775,475" size="100,100">(display:&quot;Chrome&quot;)
-(set: $typewriterText to &quot;He walks back out to the nurses stand to do some charting when Nurse Lin from the Adult ICU department walks up to him. \&quot;Hey Eduardo, my niece, Alyssa, she was in a car accident, can I get an update on her?\&quot; she asks. Eduardo freezes. His heart breaks for Nurse Lynn, but with no parents, he can&#39;t confirm he can share info with Lynn yet... should he: &quot;)
+(set: $typewriterText to &quot;He walks back out to the nurses stand to do some charting when Nurse Lin from the Adult ICU department walks up to him. \&quot;Hey Edwardo, my niece, Alyssa, she was in a car accident, can I get an update on her?\&quot; she asks. Edwardo freezes. His heart breaks for Nurse Lynn, but with no parents, he can&#39;t confirm he can share info with Lynn yet... should he: &quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -542,7 +581,7 @@ He steps into her room. THe small girl is sedated, to keep her out of pain and d
     (append: ?typewriterOutput)[
 [[Tell Lynn everything-&gt;Consent-Incorrect]].. this is probably one of the hardest days of her life.. She could look it all up in ChartMed+, anyways... She is a hospitial employee. 
 
-Tell Lynn he unfourently [[can&#39;t say anything-&gt;Consent-Correct]] yet since they can&#39;t get parental consent yet. He expresses how sorry he is and tells her they are taking good care of her.
+Tell Lynn he unfortunatly [[can&#39;t say anything-&gt;Consent-Correct]] yet since they can&#39;t get parental consent yet. He expresses how sorry he is and tells her they are taking good care of her.
     ]
     (stop:)
   ]
@@ -565,8 +604,8 @@ Tell Lynn he unfourently [[can&#39;t say anything-&gt;Consent-Correct]] yet sinc
 
 </tw-passagedata><tw-passagedata pid="32" name="Consent-Correct" tags="" position="1925,450" size="100,100">(display:&quot;Chrome&quot;)
 (set: $consentCorrectb2 to true)
-(set: $points to $points + 1)
-(set: $typewriterText to &quot;Lynn sighs, she understands Eduardo and doesn&#39;t want to get him in trouble, she will have to wait until either her sister or brother-in-law are out of the &quot;)
+(set: $nPoints to $nPoints + 1)
+(set: $typewriterText to &quot;Lynn sighs, she understands Edwardo and doesn&#39;t want to get him in trouble, she will have to wait until either her sister or brother-in-law are out of the &quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -581,17 +620,17 @@ Tell Lynn he unfourently [[can&#39;t say anything-&gt;Consent-Correct]] yet sinc
 ]
 </tw-passagedata><tw-passagedata pid="33" name="surgery" tags="" position="2100,475" size="100,100">(display:&quot;Chrome&quot;)
 (set: $typewriterText to &quot;
-Eduardo feels for Lynn, he hopes everyone pulls through this scary day. He finished up his charting when his office phone rings...
+Edwardo feels for Lynn, he hopes everyone pulls through this scary day. He finished up his charting when his office phone rings...
 
-E: \&quot;Hi this Nurse Eduardo speaking, St. John&#39;s Pedatric ICU\&quot;
+E: \&quot;Hi this Nurse Edwardo speaking, St. John&#39;s Pedatric ICU\&quot;
 
-Unknown Caller: \&quot;Hi. This is Alyssa&#39;s grandfather, Olin. I&#39;m very concerend abotu her. Is she is a pateint of yours?\&quot;
+Unknown Caller: \&quot;Hi. This is Alyssa&#39;s grandfather, Olin. I&#39;m very concerend about her. Is she is a patient of yours?\&quot;
 
 E: \&quot;What is your relation to the patient?\&quot;
 
 UC: \&quot;I am her paternal grandfather,\&quot; he huffs... aggrevated. \&quot;So is she okay? What&#39;s her condition?\&quot; 
 
-Eduardo pauses... thinking of his response... should he: &quot;)
+Edwardo pauses... thinking of his response... should he: &quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -602,7 +641,7 @@ Eduardo pauses... thinking of his response... should he: &quot;)
     (append: ?typewriterOutput)[
 [[Tell grandpa Olin-&gt;Grandpa-Correct]] the latest update... he deserves to know how Alyssa is.
 
-Ask Grandpa Olin to [[fax over some proof of identity-&gt;Grandpa-Incorrect]], like a birth certificate, just to confirm his bio idenitity and that he can give him info over the phone.
+Ask Grandpa Olin to [[fax over some proof of identity-&gt;Grandpa-Incorrect]], like a birth certificate, just to confirm his relantionship and that he can give him info over the phone.
     ]
     (stop:)
   ]
@@ -610,8 +649,8 @@ Ask Grandpa Olin to [[fax over some proof of identity-&gt;Grandpa-Incorrect]], l
 
 </tw-passagedata><tw-passagedata pid="34" name="Grandpa-Correct" tags="" position="2250,525" size="100,100">(display:&quot;Chrome&quot;)
 (set: $grandpaCorrectb2 to true)
-(set: $points to $points + 1)
-(set: $typewriterText to &quot;Eduardo breathes a sigh of relief, knowing Alyssa has all this wonderful family watching out for &quot;)
+(set: $nPoints to $nPoints + 1)
+(set: $typewriterText to &quot;Edwardo breathes a sigh of relief, knowing Alyssa has all this wonderful family watching out for &quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -625,7 +664,7 @@ Ask Grandpa Olin to [[fax over some proof of identity-&gt;Grandpa-Incorrect]], l
   ]
 ]</tw-passagedata><tw-passagedata pid="35" name="Grandpa-Incorrect" tags="" position="2250,400" size="100,100">(display:&quot;Chrome&quot;)
 
-(set: $typewriterText to &quot;Eduardo tells Olin to fax it over and he will call him back after he gets confirmation he can share information. Eduardo hopes this works out so Alyssa can have a family member by her&quot;)
+(set: $typewriterText to &quot;Edwardo tells Olin to fax it over and he will call him back after he gets confirmation he can share information. Edwardo hopes this works out so Alyssa can have a family member by her&quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -640,7 +679,7 @@ Ask Grandpa Olin to [[fax over some proof of identity-&gt;Grandpa-Incorrect]], l
 ]
 </tw-passagedata><tw-passagedata pid="36" name="her" tags="" position="2425,425" size="100,100">(display:&quot;Chrome&quot;)
 &lt;img src=&quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/nursing/pastry.png?raw=true&quot;&gt;
-(set: $typewriterText to &quot;After a couple more hours of his shift, it&#39;s time for Eduardo&#39;s 15-minute break. He leaves the PICU to go grab a snack from the hospital cafeteria. After choosing a pastry &amp; a shot of espresso he heads&quot;)
+(set: $typewriterText to &quot;After a couple more hours of his shift, it&#39;s time for Edwardo&#39;s 15-minute break. He leaves the PICU to go grab a snack from the hospital cafeteria. After choosing a pastry &amp; a shot of espresso he heads&quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -666,7 +705,7 @@ Should he: &quot;)
   (if: $typewriterPos is $typewriterText&#39;s length + 1)[
     (append: ?typewriterOutput)[ 
 [[Open the door-&gt;Door-Incorrect]] for the guy behind him... it is the polite thing to do for a visitor!
-[[Ask him to badge in-&gt;Door-Correct]] or show him a visitor badge... Eduardo doesn&#39;t want to let a stranger in!
+[[Ask him to badge in-&gt;Door-Correct]] or show him a visitor badge... Edwardo doesn&#39;t want to let a stranger in!
     ]
     (stop:)
   ]
@@ -675,7 +714,7 @@ Should he: &quot;)
 
 
 </tw-passagedata><tw-passagedata pid="38" name="Door-Incorrect" tags="" position="2750,475" size="100,100">(display:&quot;Chrome&quot;)
-(set: $typewriterText to &quot;The man follows Eduardo in to the PICU, heading the other way. Eduardo sits down in the break room to enjoy his &quot;)
+(set: $typewriterText to &quot;The man follows Edwardo in to the PICU, heading the other way. Edwardo sits down in the break room to enjoy his &quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -689,7 +728,7 @@ Should he: &quot;)
   ]
 ]</tw-passagedata><tw-passagedata pid="39" name="Door-Correct" tags="" position="2750,325" size="100,100">(display:&quot;Chrome&quot;)
 (set: $doorCorrectb2 to true)
-(set: $points to $points + 1)
+(set: $nPoints to $nPoints + 1)
 (set: $typewriterText to &quot;The man has no ID, so Eduardo asks him to go sign-in at the front desk. Eduardo then heads into the breakroom to enjoy his&quot;)
 
 (set: $typewriterPos to 1)
@@ -718,8 +757,9 @@ Should he: &quot;)
     (stop:)
   ]
 ]</tw-passagedata><tw-passagedata pid="41" name="Debrief branch 2" tags="" position="3100,350" size="100,100">(display:&quot;Chrome&quot;)
-[[Start]] </tw-passagedata><tw-passagedata pid="42" name="Jamie Enters" tags="" position="875,1200" size="100,100">(display:&quot;Chrome&quot;)
+[[Start]] </tw-passagedata><tw-passagedata pid="42" name="Jamie Enters" tags="" position="875,1175" size="100,100">(display:&quot;Chrome&quot;)
 
+(set: $ehsPoints to 0)
 &lt;img src= &quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/ehs/CRITICALUPDATEREQUIRED.png?raw=true&quot;&gt;
 
 (set: $typewriterText to &quot;Her inbox pinged: a vendor ETA, a direct message from a lab manager, a safety audit reminder. She needs to prep for the vendor later today; they have the part for the broken fume hood in the Biomaterials Lab. She clicked to open its instrument-certification note and a full-screen banner flashes across her monitor:  
@@ -770,13 +810,12 @@ The screen flickers. The machine reboots mid-upload. When it reopens, a small dr
 
 
 </tw-passagedata><tw-passagedata pid="44" name="Update-Correct" tags="" position="1025,1225" size="100,100">(display:&quot;Chrome&quot;)
-(set: $points to $points + 1)
+(set: $ehsPoints to $ehsPoints +1)
 (set: $updateCorrectb4 to true)
 (set: $typewriterText to &quot;
 Jamie opens the official Software Center, confirmed the legitimate updates were scheduled for later, and took a screenshot of the rogue popup. Then she filed a ticket with IT Security, dropped the screenshot and her workstation name into the form, and wrote a quick note in the lab change-log: Patch scheduled; rogue banner reported. She was proud of this little victory, she blocked a probable trap and hopefully prevented a major IT issue. 
 
-Jamie then
-&quot;)
+Jamie then&quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
@@ -784,8 +823,7 @@ Jamie then
   (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
   (set: $typewriterPos to it + 1)
   (if: $typewriterPos is $typewriterText&#39;s length + 1)[
-    (append: ?typewriterOutput)[
-	[[Goes back to work-&gt;Password Request]]
+    (append: ?typewriterOutput)[ [[goes back to work-&gt;Password Request]].
     ]
     (stop:)
   ]
@@ -808,9 +846,9 @@ Jamie then
   (set: $typewriterPos to it + 1)
   (if: $typewriterPos is $typewriterText&#39;s length + 1)[
     (append: ?typewriterOutput)[
-	[[Share the admin password so the lab isn’t backed up -&gt;Password-Incorrect]]
+[[Share the admin password so the lab isn’t backed up -&gt;Password-Incorrect]]
 
-	[[Decline to share; start an access request-&gt;Password-Correct]]
+[[Decline to share; start an access request-&gt;Password-Correct]]
     ]
     (stop:)
   ]
@@ -844,7 +882,7 @@ Another grad student calls out to her, \&quot;Ms. Williams, the vendor for the f
 
 </tw-passagedata><tw-passagedata pid="47" name="Password-Correct" tags="" position="1350,1200" size="100,100">(display:&quot;Chrome&quot;)
 (set: $passwordCorrectb4 to false)
-(set: $points to $points + 1)
+(set: $ehsPoints to $ehsPoints +1)
 (set: $typewriterText to &quot;Jamie pictured the messy audit trail that would follow if she typed the password into chat. She imagined inventory edits from strange locations and frantic emails later. She typed back: “I can’t share credentials. I’ll request a temporary WasteSubmitter role for you and send a read-only PDF of the queue for today.”  
 
 She opened the access portal, attached a short justification, and hit submit. Then she exported the current queue as a PDF and sent it to Priya. She replied with a relieved emoji and a quick “Thanks.” 
@@ -913,7 +951,7 @@ Now that that was taken care of, should she:
 
 
 </tw-passagedata><tw-passagedata pid="50" name="USB-Correct" tags="" position="1675,1200" size="100,100">(display:&quot;Chrome&quot;)
-(set: $points to $points + 1)
+(set: $ehsPoints to $ehsPoints +1)
 (set: $usbCorrectb4 to false)
 (set: $typewriterText to &quot;Jamie checks the work order number against Facilities, then routes the installer through IT’s malware scan and code-signature check. She routed the installer through IT for a malware and code-signature check. She also hung a small laminated sign on the hood: Hood Updates In Progress, install from whitelisted source only. Jamie then turns back to the workstation to &quot;)
 
@@ -956,7 +994,7 @@ Now that that was taken care of, should she:
 
 
 </tw-passagedata><tw-passagedata pid="52" name="Exposure-Correct" tags="" position="1975,1175" size="100,100">(display:&quot;Chrome&quot;)
-(set: $points to $points + 1)
+(set: $ehsPoints to $ehsPoints +1)
 (set: $exposureCorrectb4 to true)
 (set: $typewriterText to &quot;Jamie removes broad access on the folder (restricts to the lab’s principal investigator and managers). She takes timestamped screenshots of the file path, share settings, and the Medical Record Numbers, only what was necessary for evidence, no extra downloads, and files an incident ticket with exact path, who likely had access, and that clinical identifiers may be present. She emails the PI and the department privacy contact: “Containment done; incident filed; awaiting guidance.” Then she checks the workstation’s screen-lock settings and logs out. 
 
@@ -972,7 +1010,7 @@ Now that that was taken care of, should she:
     ]
     (stop:)
   ]
-]</tw-passagedata><tw-passagedata pid="53" name="Exposure-Incorrect" tags="" position="1950,1025" size="100,100">(display:&quot;Chrome&quot;)
+]</tw-passagedata><tw-passagedata pid="53" name="Exposure-Incorrect" tags="" position="1975,1025" size="100,100">(display:&quot;Chrome&quot;)
 (set: $typewriterText to &quot;Copying over the file wasn&#39;t enough to protect the data. By the end of the week, Data Loss Prevention alerts show hundreds of views and copy-pastes into email chains. The lab must do a broad notification and retraining, and pulls time from actual research. 
  
 Jamie realizes she made a mistake- time matters for exposures, she needed to contain, document, and report the incident immediately.&quot;)
@@ -992,7 +1030,7 @@ Jamie realizes she made a mistake- time matters for exposures, she needed to con
 
 
 
-</tw-passagedata><tw-passagedata pid="54" name="Wrap-up the day" tags="" position="2125,1075" size="100,100">(display:&quot;Chrome&quot;)
+</tw-passagedata><tw-passagedata pid="54" name="Wrap-up the day" tags="" position="2150,1050" size="100,100">(display:&quot;Chrome&quot;)
 (set: $typewriterText to &quot;Jamie removes broad access on the folder (restricts to the lab’s PI and managers), takes timestamped screenshots of the file path, share settings, and the Medical Record Numbers, only what was necessary for evidence, no extra downloads, and files an incident ticket with exact path, who likely had access, and that clinical identifiers may be present. He emails the PI and the department privacy contact: “Containment done; incident filed; awaiting guidance.” Then he checks the workstation’s screen-lock settings and logs out.
 
 He then goes back to his office to&quot;)
@@ -1047,36 +1085,26 @@ This experience uses the Twine platform, where you must click the [[bolded text-
 }
 
 (display:&quot;Chrome&quot;)</tw-passagedata><tw-passagedata pid="57" name="Final Module" tags="" position="450,425" size="100,100">None</tw-passagedata><tw-passagedata pid="58" name="Social Media Intro" tags="" position="1125,800" size="100,100">(display:&quot;Chrome&quot;)
-(set: $typewriterText to &quot;Ellie, their social media coordinator, is smiling wide. She says, “Ryan, the new post is up encouraging people to go get vaccinated.. It already has 100 likes!” she beamed. Ryan congratulates her and opens his phone to add the one hundred and first like.. 
+&lt;img src =&quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/publichealth/kimkpublichealthcomment.png?raw=true&quot;&gt;
 
-As he likes the post, he notices the top comment...
+(set: $typewriterText to &quot;Ellie, their social media coordinator, is smiling wide. She says, “Ryan, the new post is up encouraging people to go get vaccinated. It already has 100 likes!” she beamed. Ryan congratulates her and opens his phone to add the one hundred and first like.. 
+ 
+As he likes the post, he notices the top comment... 
+
+“\#healthcare \#flushot \#Flu” from kimkhardashian 
+
+“Omg Ellie!! Kim K just commented on your vaccine post, how cool!” 
+
+Ellie’s jaw drops as she whips out her work phone to check. She stops for a second, smiling wide... “she DM’ed us!” Her and Ryan jump up and down, a celebrity spokesperson is just what they need! 
+ 
+Ellie opens the DM... 
+“Hey Haverford Community Clinic! Love ur message about vaccines. Send me 1,000 dollars and I’ll repost your incredible messaging!”
 &quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
 (live: 20ms)[
   (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
-  (set: $typewriterPos to it + 1)
-  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
-    (append: ?typewriterOutput)[&lt;img src =&quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/publichealth/kimkpublichealthcomment.png?raw=true&quot;&gt;
-    ]
-    (stop:)
-  ]
-]
-(set: $typewriterText2 to &quot;
-“go get that vaxx” &lt;3 from kimkhardashian 
-
-“Omg Ellie!! Kim K just commented on your vaccine post, how cool!” 
-
-Ellie’s jaw drops as she whips pit her work phone to check. She stops for a second, smiling wide... “she DM’ed us!” Her and Ryan jump up and down, a celebrity spokesperson is just what they need! 
- 
- Ellie opens the DM... 
-“Hey Haverford Community Clinic! Love ur message about vaccines. Send me 1,000 dollars and I’ll repost your incredible messaging!” &quot;)
-
-(set: $typewriterPos to 1)
-|typewriterOutput&gt;[]
-(live: 20ms)[
-  (append: ?typewriterOutput)[(print: $typewriterText2&#39;s $typewriterPos)]
   (set: $typewriterPos to it + 1)
   (if: $typewriterPos is $typewriterText&#39;s length + 1)[
     (append: ?typewriterOutput)[
@@ -1093,15 +1121,11 @@ Ellie’s jaw drops as she whips pit her work phone to check. She stops for a se
  
  
 </tw-passagedata><tw-passagedata pid="59" name="DM-Correct" tags="" position="1275,875" size="100,100">(display:&quot;Chrome&quot;)
+(set: $DMCorrectb3 to true)
 (set: $points to $points + 1)
-Star‑struck, Ryan okays it. Ellie sends “Happy to!” and buys $1,000 in digital gift cards, pasting the claim numbers into the DM “so your team can redeem.” The account replies with a heart emoji and a promise to repost “later tonight.” 
-No repost comes. Instead, two copy‑cat accounts pop up under the thread, asking followers to match the celeb’s donation.” send cards here.” Donors begin DMing the clinic, confused. Finance asks for an invoice, but there isn’t one. IT confirms the account is impersonating, and Comms drafts an apology note explaining the clinic fell for a social‑media payment scam and is cooperating with the platform’s abuse team.  
-Ellie turns pale. Ryan spends the next hour freezing comments, filing a fraud report, and updating the social media playbook: no financial commitments via DM, ever. They should require formal vendor setup and contracts for any influencer partnership. 
- 
-With that settled, Ryan [[goes back to his laptop-&gt;QR code setup]]</tw-passagedata><tw-passagedata pid="60" name="DM-Incorrect" tags="" position="1275,725" size="100,100">(display:&quot;Chrome&quot;)
 (set: $typewriterText to &quot;Ellie’s thumbs hover over the keyboard, but Ryan stops her gently. “No payments over DMs. Ever.” He scans the handle again, it’s off by a letter, there’s no “verified” badge, a link in bio to a generic link shortener, a classic impersonation case.  
  
-They screenshot the thread, lock replies on the post for now, and forward everything to Comms + IT with the subject line: “Possible celeb impersonation, request for payment.” Ryan uses the clinic’s media playbook: if a public figure wants to help, they (or their agent) must email press@haverfordfreeclinic.org from a verifiable domain. Finance would sets up a vendor record/W‑9, they would never send crypto or giftcards, and any donation flows through the official portal. 
+They screenshot the thread, lock replies on the post for now, and forward everything to Communications and IT with the subject line: “Possible celeb impersonation, request for payment.” Ryan uses the clinic’s media playbook: if a public figure wants to help, they (or their agent) must email press@haverfordfreeclinic.org from a verifiable domain. Finance would set up a vendor record/W‑9, they would never send crypto or giftcards, and any donation flows through the official portal. 
  
 Ellie flips on comment filters for common scam phrases, enables 2‑person review on DMs in the scheduler app, and confirms MFA is on for the clinic’s social accounts. Then she posts a calm update: “Thanks for the love, please donate using our official link on our website.” The fake account is reported. Ten minutes later, the real publicist for a local news anchor emails to feature the clinic, with no payments requested. 
 
@@ -1117,49 +1141,194 @@ With that settled, Ryan &quot;)
     ]
     (stop:)
   ]
+]</tw-passagedata><tw-passagedata pid="60" name="DM-Incorrect" tags="" position="1275,725" size="100,100">(display:&quot;Chrome&quot;)
+(set: $typewriterText to &quot;Star‑struck, Ryan okays it. Ellie sends “Happy to!” and buys $1,000 in digital gift cards, pasting the claim numbers into the DM “so your team can redeem.” The account replies with a heart emoji and a promise to repost “later tonight.” 
+No repost comes. Instead, two copy‑cat accounts pop up under the thread, asking followers to match the celeb’s donation.” send cards here.” Donors begin DMing the clinic, confused. Finance asks for an invoice, but there isn’t one. IT confirms the account is impersonating, and Communications drafts an apology note explaining the clinic fell for a social‑media payment scam and is cooperating with the platform’s abuse team.  
+Ellie turns pale. Ryan spends the next hour freezing comments, filing a fraud report, and updating the social media playbook: no financial commitments via DM, ever. They should require formal vendor setup and contracts for any influencer partnership. 
+
+With that settled, Ryan &quot;)
+
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[ [[goes back to his laptop-&gt;QR code setup]].
+    ]
+    (stop:)
+  ]
 ]</tw-passagedata><tw-passagedata pid="61" name="QR code setup" tags="" position="1450,825" size="100,100">(display:&quot;Chrome&quot;)
-Ryan goes back to his laptop to make sure everything is set for the clinic today. The flyer vendor has sent the print proof, including a big QR code that should take residents straight to the official sign‑up page. Volunteers will staff check‑in on clinic iPads. Later, he’ll post a short update to the public dashboard about last week’s vaccinations. 
+
+&lt;img src = &quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/publichealth/HaverfordFreeClinicVaccineFlyer.png?raw=true&quot;&gt;
+(set: $typewriterText to &quot;Ryan goes back to his laptop to make sure everything is set for the clinic today. The flyer vendor has sent the print proof, including a big QR code that should take residents straight to the official sign‑up page. Volunteers will staff check‑in on clinic iPads. Later, he’ll post a short update to the public dashboard about last week’s vaccinations. 
 
 Ryan opens the proof and notices the QR resolves to a shortened URL that he doesn’t recognize. 
  
-Should he: 
-[[Keep the shortened url, trusting the vendor modified it for a reason-&gt;QR-Incorrect]]  
-[[Change to a clinic‑owned link and add the full domain printed under the code-&gt;QR-Correct]] </tw-passagedata><tw-passagedata pid="62" name="QR-Incorrect" tags="" position="1625,875" size="100,100">(display:&quot;Chrome&quot;)
-The QR goes to print. At the clinic, a participant flags that the code opens haverford‑vax.info, a look‑alike site asking for birthdate, insurance, and SSN “for identity checks.”  
-Ryan pulls the flyers and calls IT. They will notify the printer and take down the imposter page, but patient trust took a hit. 
- 
-Ryan then leaves the clinic to [[inspect a potential new vendor-&gt;Data]] 
+Should he: &quot;)
+
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[
+    [[Keep the shortened url, trusting the vendor modified it for a reason-&gt;QR-Incorrect]]  
+[[Change to a clinic‑owned link and add the full domain printed under the code-&gt;QR-Correct]] 
+    ]
+    (stop:)
+  ]
+]
+
+</tw-passagedata><tw-passagedata pid="62" name="QR-Incorrect" tags="" position="1625,875" size="100,100">(display:&quot;Chrome&quot;)
+(set: $typewriterText to &quot;The QR goes to print. At the clinic, a participant flags that the code opens haverford‑vax.info, a look‑alike site asking for birthdate, insurance, and SSN “for identity checks.”  
+Ryan pulls the flyers and calls IT. They will notify the printer and take down the imposter page, but patient trust took a hit.
+
+Ryan then leaves the clinic to &quot;)
+
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[  [[inspect a potential new vendor-&gt;Data]].
+    ]
+    (stop:)
+  ]
+]
+
 </tw-passagedata><tw-passagedata pid="63" name="QR-Correct" tags="" position="1625,725" size="100,100">(display:&quot;Chrome&quot;)
 (set: $points to $points + 1)
-Ryan swaps the QR to haverfordfreeclinic.org/vax (an IT‑managed redirect), tests it by scanning it from iOS/Android, and adds the readable URL below the code so participants can spot any  typosquats. 
+(set: $typewriterText to &quot;Ryan swaps the QR to haverfordfreeclinic.org/vax (an IT‑managed redirect), tests it by scanning it from iOS/Android, and adds the readable URL below the code so participants can spot any typos. 
+
+Ryan then leaves the clinic to &quot;)
+
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[  [[inspect a potential new vendor-&gt;Data]].
+    ]
+    (stop:)
+  ]
+]
+
 
  
-Ryan then leaves the clinic to [[inspect a potential new vendor-&gt;Data]]  </tw-passagedata><tw-passagedata pid="64" name="Data" tags="" position="1750,850" size="100,100">(display:&quot;Chrome&quot;)
-As the clinic is growing, outreach wants to automate sending out text reminders to patients for their appointment time. The vendor portal offers to ingest the entire CSV export from the Electronic Health Record by default (name, DOB, address, MRN, diagnosis, phone…). 
+</tw-passagedata><tw-passagedata pid="64" name="Data" tags="" position="1775,825" size="100,100">(display:&quot;Chrome&quot;)
+(set: $typewriterText to &quot;As the clinic is growing, outreach wants to automate sending out text reminders to patients for their appointment time. The vendor portal offers to ingest the entire CSV export from the Electronic Health Record by default (name, DOB, address, MRN, diagnosis, phone…). &quot;)
 
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[  
 [[Upload the full EHR export so the vendor has “context” and leave defaults on-&gt;Data-Incorrect]] 
  
 [[Upload only the minimal fields and ask more about privacy options-&gt;Data-Correct]] 
-</tw-passagedata><tw-passagedata pid="65" name="Missing iPad" tags="" position="2075,800" size="100,100">Ryan picks up the phone to a panicked Ellie. She explains that ask they packed everything up, the volunteers returned all the clipboards, but one of the check-in iPads has gone missing! 
- 
-Should he: 
-[[Go down to the site to look for the iPad himself-&gt;iPad incorrect]] 
+    ]
+    (stop:)
+  ]
+]
 
-[[Immediately mark the iPad as lost with a mobile device management platform-&gt;iPad correct.]] </tw-passagedata><tw-passagedata pid="66" name="Data-Incorrect" tags="" position="1900,900" size="100,100">(display:&quot;Chrome&quot;)
-Ryan uploads the entire EHR CSV to the portal, including DOBs, MRNs, diagnoses and all. Later, the vendor’s analytics page displays location heatmaps tied to those numbers. 
-Legal asks whether a BAA was in place and why so much data left the EHR. Ryan knows he can get in trouble for this.  
- 
-As he wraps this up, he notices Ellie is calling him from the clinic and [[picks up the phone-&gt;Missing iPad]] </tw-passagedata><tw-passagedata pid="67" name="Data-Correct" tags="" position="1900,750" size="100,100">(display:&quot;Chrome&quot;)
-(set: $points to $points + 1)
-Ryan looks more into the settings the new vendor application, confirming the Business Associate Agreement is on file, maps only first name, phone, appointment slot, disables location tracking, and drafts neutral text without PHI: “Reminder: Your Haverford Free Clinic appointment is today at 2:40 PM. Reply STOP to opt‑out.” 
- 
-As he wraps this up, he notices Ellie is calling him from the clinic and [[picks up the phone-&gt;Missing iPad]] </tw-passagedata><tw-passagedata pid="68" name="iPad incorrect" tags="" position="2250,875" size="100,100">(display:&quot;Chrome&quot;)
-At 9 a.m., the volunteer finds the iPad… powered on, still signed into the check‑in app. Logs show after‑hours access from a nearby coffee shop. IT must now assume data exposure and start notifications. 
 
-Ryan is ready to [[wrap up the day.-&gt;EndingPH]] </tw-passagedata><tw-passagedata pid="69" name="iPad correct." tags="" position="2225,725" size="100,100">(display:&quot;Chrome&quot;)
+
+
+   
+</tw-passagedata><tw-passagedata pid="65" name="Missing iPad" tags="" position="2075,800" size="100,100">(display:&quot;Chrome&quot;)
+(set: $typewriterText to &quot;Ryan picks up the phone to a panicked Ellie. She explains that ask they packed everything up, the volunteers returned all the clipboards, but one of the check-in iPads has gone missing! 
+ 
+Should he:  &quot;)
+
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[  
+[[Go down to the site to look for the iPad himself.-&gt;iPad incorrect]] 
+
+[[Immediately mark the iPad as lost with a mobile device management platform-&gt;iPad correct.]] 
+    ]
+    (stop:)
+  ]
+]
+
+</tw-passagedata><tw-passagedata pid="66" name="Data-Incorrect" tags="" position="1900,900" size="100,100">(display:&quot;Chrome&quot;)
+(set: $typewriterText to &quot;Ryan uploads the entire EHR CSV to the portal, including DOBs, MRNs, diagnoses and all. Later, the vendor’s analytics page displays location heatmaps tied to those numbers. 
+Legal asks whether a BAA was in place, a form required by HIPAA and why so much data left the EHR. Ryan knows he can get in trouble for this.  As he wraps this up, he notices Ellie is calling him from the clinic and &quot;)
+
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[ [[picks up the phone-&gt;Missing iPad]] 
+    ]
+    (stop:)
+  ]
+]</tw-passagedata><tw-passagedata pid="67" name="Data-Correct" tags="" position="1900,750" size="100,100">(display:&quot;Chrome&quot;)
 (set: $points to $points + 1)
-Ryan opens the clinic’s MDM: marks the device Lost, locks the screen with a number to call, and queues a remote wipe, if it fails to check in by midnight. He disables device access tokens for the check‑in app, files an incident with the asset tag, and documents which records were touched during the event. 
-Ryan is ready to [[wrap up the day.-&gt;EndingPH]] </tw-passagedata><tw-passagedata pid="70" name="EndingPH" tags="" position="2375,775" size="100,100">(display:&quot;Chrome&quot;)</tw-passagedata><tw-passagedata pid="71" name="Jaime Intro" tags="" position="700,1175" size="100,100">(display:&quot;Chrome&quot;)
+(set: $typewriterText to &quot;Ryan looks more into the settings the new vendor application, confirming the Business Associate Agreement is on file, maps only first name, phone, appointment slot, disables location tracking, and drafts neutral text without PHI: “Reminder: Your Haverford Free Clinic appointment is today at 2:40 PM. Reply STOP to opt‑out.” 
+ 
+As he wraps this up, he notices Ellie is calling him from the clinic and &quot;)
+
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[ [[picks up the phone-&gt;Missing iPad]] 
+    ]
+    (stop:)
+  ]
+]</tw-passagedata><tw-passagedata pid="68" name="iPad incorrect" tags="" position="2250,875" size="100,100">(display:&quot;Chrome&quot;)
+(set: $typewriterText to &quot;At 9 a.m., the volunteer finds the iPad… powered on, still signed into the check‑in app. Logs show after‑hours access from a nearby coffee shop. IT must now assume data exposure and start notifications.
+
+Ryan is ready to&quot;)
+
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[ [[wrap up the day.-&gt;EndingPH]] 
+    ]
+    (stop:)
+  ]
+]
+</tw-passagedata><tw-passagedata pid="69" name="iPad correct." tags="" position="2225,725" size="100,100">(display:&quot;Chrome&quot;)
+(set: $points to $points + 1)
+(set: $typewriterText to &quot;Ryan opens the clinic’s MDM: marks the device Lost, locks the screen with a number to call, and queues a remote wipe, if it fails to check in by midnight. He disables device access tokens for the check‑in app, files an incident with the asset tag, and documents which records were touched during the event. Ryan is ready to &quot;)
+
+(set: $typewriterPos to 1)
+|typewriterOutput&gt;[]
+(live: 20ms)[
+  (append: ?typewriterOutput)[(print: $typewriterText&#39;s $typewriterPos)]
+  (set: $typewriterPos to it + 1)
+  (if: $typewriterPos is $typewriterText&#39;s length + 1)[
+    (append: ?typewriterOutput)[ [[wrap up the day.-&gt;EndingPH]] 
+    ]
+    (stop:)
+  ]
+]
+
+
+
+ 
+
+</tw-passagedata><tw-passagedata pid="70" name="EndingPH" tags="" position="2375,775" size="100,100">(display:&quot;Chrome&quot;)
+[[Start]] </tw-passagedata><tw-passagedata pid="71" name="Jaime Intro" tags="" position="700,1175" size="100,100">(display:&quot;Chrome&quot;)
 
 &lt;img src = &quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/ehs/gORDONCENTERLOGO.png?raw=true&quot;&gt;
 
@@ -1175,13 +1344,11 @@ Ryan is ready to [[wrap up the day.-&gt;EndingPH]] </tw-passagedata><tw-passaged
     (stop:)
   ]
 ]
-
-
 </tw-passagedata><tw-passagedata pid="72" name="PH-branch-Intro" tags="" position="700,725" size="100,100">(display: &quot;Chrome&quot;)
 &lt;img src= &quot;https://github.com/UConn-AlliedHealth-Tech/Tech-Kits/blob/main/ITSecurity/Intermediate/images/profiles/ryannelson.png?raw=true&quot;&gt;
 
 [[Start Ryan&#39;s Day-&gt;Ryan Intro]]</tw-passagedata><tw-passagedata pid="73" name="Ryan Intro" tags="" position="875,800" size="100,100">(display:&quot;Chrome&quot;)
-(set: $typewriterText to &quot;Ryan sips his morning coffee as he walks into Haverford’s community clinic. He greets Donna, the front-desk receptionist and heads to his desk. He has a super busy day ahead, they are launching their new social media campaign to encourage getting the COVID vaccine, starting a new fundraiser to help raise money for their second clinic locatopm they plan to open next year and he has to do a big data review... the list is exhaustive. He looks up to see a &quot;)
+(set: $typewriterText to &quot;Ryan sips his morning coffee as he walks into Haverford’s community clinic. He greets Donna, the front-desk receptionist and heads to his desk. He has a super busy day ahead, they are launching their new social media campaign to encourage getting the Flu vaccine, starting a new fundraiser to help raise money for their second clinic location they plan to open next year and he has to do a big data review... the list is exhaustive. He looks up to see a &quot;)
 
 (set: $typewriterPos to 1)
 |typewriterOutput&gt;[]
